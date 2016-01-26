@@ -1,0 +1,114 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <div ng-if="store && store.image_url">
+      <img ng-src="{{store.image_url}}" class="img-circle"></img>
+      <br>
+    </div>
+    <h1>{{now | date:"EEEE"}}</h1>
+    <p class="lead">{{now | date: "h:mma"}}&nbsp;&nbsp;&nbsp;&nbsp;{{now | date:"MMMM d, yyyy"}}</p>
+    <div ng-if="store">
+      {{store.location.address[0]}}, {{store.location.city}}, {{store.location.state_code}}, {{store.location.country_code}} <a class="clickable" ng-click="storeSelect()" ><span class="glyphicon glyphicon-cog"></span></a>
+    </div>
+    <div ng-if="!store">
+      <button class="btn btn-primary" ng-click="storeSelect()" >Select Store</button>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row" ng-if="storeSelected">
+    <br>
+    <div class="col-lg-12">
+      <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Events
+          </div>
+          <div class="panel-body">
+            <a class="btn btn-facebook" ng-if="!fbAuth" ng-click="loginOauth('facebook')">
+              <i class="fa fa-facebook"></i> Connect with Facebook
+            </a>
+            <div ng-if="fbAuth">
+              <h4>Today:</h4>
+              <div ng-repeat="event in todaysEvents = (fbEvents | orderBy: 'start_time' | todayEvent)">
+                <strong>{{event.name}}</strong><br>
+                {{event.start_time | date:"medium"}}<span ng-hide="event.end_time"> - {{event.end_time | date:"medium"}}</span><br>
+                {{event.location}}
+                <br><br>
+              </div>
+              <div ng-show="todaysEvents.length == 0">No events found for today.<br><br></div>
+              <h4>Ongoing:</h4>
+              <div ng-repeat="event in ongoingEvents = (fbEvents | orderBy: 'start_time' | ongoingEvent)">
+                <strong>{{event.name}}</strong><br>
+                {{event.start_time | date:"medium"}} - {{event.end_time | date:"medium"}}<br>
+                {{event.location}}
+                <br><br>
+              </div>
+              <div ng-show="ongoingEvents.length == 0">No ongoing events found.<br><br></div>
+              <h4>Upcoming:</h4>
+              <div ng-repeat="event in upcomingEvents = (fbEvents | orderBy: 'start_time' | upcomingEvent | limitTo:5)">
+                <strong>{{event.name}}</strong><br>
+                {{event.start_time | date:"short"}}<span ng-hide="event.end_time"> - {{event.end_time | date:"short"}}</span><br>
+                {{event.location}}
+                <br><br>
+              </div>
+              <div ng-show="upcomingEvents.length == 0">No upcoming events found.<br><br></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Customer Satisfaction
+          </div>
+          <div class="panel-body">
+            <div class="pull-left padded-thumb">
+              <img ng-src="{{store.image_url}}" ng-if="store.image_url"><br>
+            </div>
+            <div>
+              <a ng-href="{{store.url}}"><strong>{{store.name}}</strong></a><br>
+              <img ng-src="{{store.rating_img_url}}"><br>
+              {{store.review_count}} reviews
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Social
+          </div>
+          <div class="panel-body">
+            <div class="panel" ng-repeat="tweet in tweets | limitTo:5">
+              <div class="panel-body">
+                <div class="tweet-avatar">
+                  <img ng-src="{{tweet.user.profile_image_url}}" class="img-rounded padded-thumb">
+                </div>
+                <div class="tweet-box">
+                  <div class="tweet-text">
+                    <div><strong><a ng-href="{{tweet.user.profile_url}}">{{tweet.user.name}}</img></a></strong>
+                      <div class="pull-right">
+                        {{tweet.created_ago}}
+                      </div>
+                    </div>
+                    {{tweet.text}}<br>
+                  </div>
+                  <div class="tiny-text" ng-if="tweet.geo"><span class="glyphicon glyphicon-map-marker"></span> {{tweet.place.full_name}} <span ng-if="tweet.geo.distance">({{tweet.geo.distance | number: 1}} mi away)</span><br></div>
+                  <div ng-if="tweet.entities.media.length > 0">
+                    <img ng-src="{{tweet.entities.media[0].media_url}}" class="img-responsive img-rounded"></img>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+      <p>&copy; </p>
+  </div>
+</footer>
