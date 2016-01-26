@@ -1,0 +1,8 @@
+applications:
+- services:
+  - Relationship Extraction-r3
+  - MongoLab-uo
+  name: mcsense
+  command: node server/app.js
+  path: .
+  memory: 512M
