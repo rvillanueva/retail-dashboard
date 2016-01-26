@@ -9,14 +9,28 @@ module.exports = {
   DOMAIN:           'http://localhost:9000',
   SESSION_SECRET:   'social-secret',
 
-  FACEBOOK_ID: '1569712479983259',
-  FACEBOOK_SECRET: '7593b9c5108f8b12ae346bac74247500',
+  FACEBOOK_ID: 'facebook-id',
+  FACEBOOK_SECRET: 'facebook-secret',
 
-  TWITTER_ID:       'app-id',
-  TWITTER_SECRET:   'secret',
+  TWITTER_ID: 'app-id',
+  TWITTER_SECRET: 'secret',
 
-  GOOGLE_ID:        'app-id',
-  GOOGLE_SECRET:    'secret',
+  GOOGLE_ID: 'app-id',
+  GOOGLE_SECRET: 'secret',
+
+  YELP_CONSUMER_KEY:'',
+  YELP_CONSUMER_SECRET:'',
+  YELP_ACCESS_TOKEN_KEY:'',
+  YELP_ACCESS_TOKEN_SECRET:'',
+
+
+  TWITTER_CONSUMER_KEY:'',
+  TWITTER_CONSUMER_SECRET:'',
+  TWITTER_ACCESS_TOKEN_KEY:'',
+  TWITTER_ACCESS_TOKEN_SECRET:'',
+
+  MONGOLAB_URI: '',
+
 
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
