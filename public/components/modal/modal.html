@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4 ng-if="modal.title" ng-bind="modal.title" class="modal-title"></h4>
+</div>
+<div class="modal-body">
+  <input type="text" ng-model="location" placeholder="Location"></input><button class="btn btn-primary">Search</button>
+  <br><br>
+  <div class="panel" ng-repeat="store in stores">
+    <div class="panel-heading"><span ng-repeat="line in store.location.display_address"{{line}}, </span></div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button ng-repeat="button in modal.buttons" ng-class="button.classes" ng-click="button.click($event)" ng-bind="button.text" class="btn"></button>
+</div>
